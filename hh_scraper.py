@@ -9,6 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from browser.createbrowser import CreatBrowser
+from debug_relegram import SendlerOneCreate
+
 
 class HhScraper:
     def __init__(self, filter_dict):
@@ -236,6 +238,7 @@ class HhScraper:
             return False
 
         print(f'Успешно зашёл на {filter_dict["source"]}')
+        SendlerOneCreate().send_html_and_screen()
 
         response_auth = await self.check_auth()
 
@@ -263,6 +266,8 @@ if __name__ == '__main__':
     filter_dict['password'] = ''
 
     hh_scrap_core = HhScraper(filter_dict)
+
+    # test = self.driver.get_screenshot_as_file('LambdaTestVisibleScreen.png')
 
     response = asyncio.run(hh_scrap_core.start_scrap())
     print(response)
